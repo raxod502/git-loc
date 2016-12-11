@@ -19,6 +19,8 @@ extfolder = False
 if len(args) == 1:
     extfolder = True
     targetfolder = args[0]
+else:
+    targetfolder = "."
 
 
 fc=0
@@ -30,9 +32,9 @@ excl=False
 h=[]
 
 import ConfigParser
-configfilename = os.path.join(targetfolder, ".gitlocrc")
+configfilename = os.path.join(os.path.expanduser("~"), ".gitlocrc")
 config = ConfigParser.ConfigParser()
-with open("gitlocrc") as f:
+with open(configfilename) as f:
     config.readfp(f)
 config.read([configfilename, os.path.expanduser('~/.gitlocrc')])
 exclusion_regexes = config.get("exclude", "regexes").splitlines()
@@ -146,7 +148,7 @@ def makesvg():
 	svg.write("""<polyline points="%s" class="a" style="stroke:red"/>"""%(' '.join(ps),))
 
 
-		
+
 
 	svg.write("""</svg>\n""")
 
